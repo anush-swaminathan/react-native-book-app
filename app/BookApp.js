@@ -14,25 +14,27 @@ export default class BookApp extends Component {
                 navigationBar={
                     <Navigator.NavigationBar
                         routeMapper={{
-                            LeftButton: (route, navigator, index, navState) =>
-                            {
+                            LeftButton: (route, navigator, index, navState) => {
                                 if (route.id === 1) {
                                     return null;
                                 } else {
                                     return (
                                         <TouchableHighlight onPress={() => navigator.pop()}>
-                                            <Text>Back</Text>
+                                            <Image source={require('./img/back.svg')} resizeMode="cover"></Image>
                                         </TouchableHighlight>
                                     );
                                 }
                             },
-                            RightButton: (route, navigator, index, navState) =>
-                            { return (null) },
-                            Title: (route, navigator, index, navState) =>
-                            { return (<Text style={{color: '#FFF', fontSize: 16, alignItems: 'center'}}>{route.title}</Text>); },
+                            RightButton: (route, navigator, index, navState) => {
+                                return (null)
+                            },
+                            Title: (route, navigator, index, navState) => {
+                                return (<Text
+                                    style={{color: '#FFF', fontSize: 16, alignItems: 'center'}}>{route.title}</Text>);
+                            },
                         }}
                         style={{backgroundColor: 'blue'}}
-                     />
+                    />
                 }
             />
         );
