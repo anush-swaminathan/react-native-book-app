@@ -8,7 +8,7 @@ import {
     View
 } from 'react-native';
 
-import MovieDescriptionView from './MovieDescriptionView';
+import MovieDescriptionView from './MusicDescriptionView';
 
 export default class BookDescription extends Component {
 

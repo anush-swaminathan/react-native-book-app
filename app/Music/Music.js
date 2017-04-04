@@ -1,10 +1,10 @@
 import React, {Component} from 'react';
 import {Text, View, Image, TouchableHighlight, Navigator, Picker} from 'react-native';
 
-import MovieAppList from './MovieAppList';
-import MovieDescription from './MovieDescription';
+import MovieAppList from './MusicAppList';
+import MovieDescription from './MusicDescription';
 
-export default class Movies extends Component {
+export default class Music extends Component {
 
     constructor(props) {
         super(props);

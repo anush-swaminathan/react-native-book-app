@@ -11,7 +11,7 @@ import {
     Navigator
 } from 'react-native';
 
-import MovieList from './MovieList';
+import MovieList from './MusicList';
 
 var URL = "https://api.themoviedb.org/3/movie/popular?api_key=1d27cb192429ad5e457befa6c6da3efa&language=en-US&page=1";
 
