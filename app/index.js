@@ -3,7 +3,7 @@
  */
 
 import React, {Component} from 'react';
-import {Tabs} from './BookAppTabs';
+import {Tabs} from './AppTabs';
 
 export default class App extends Component {
     render() {

@@ -20,7 +20,8 @@ export default class BookApp extends Component {
                                 } else {
                                     return (
                                         <TouchableHighlight onPress={() => navigator.pop()}>
-                                            <Image source={require('./img/back.svg')} resizeMode="cover"></Image>
+                                            <Image source={require('./../img/back.png')} resizeMode="cover"
+                                                   style={{marginTop: 10}}></Image>
                                         </TouchableHighlight>
                                     );
                                 }
@@ -30,7 +31,12 @@ export default class BookApp extends Component {
                             },
                             Title: (route, navigator, index, navState) => {
                                 return (<Text
-                                    style={{color: '#FFF', fontSize: 16, alignItems: 'center'}}>{route.title}</Text>);
+                                    style={{
+                                        color: '#FFF',
+                                        flex: 1,
+                                        fontSize: 18,
+                                        paddingTop: 15
+                                    }}>{route.title}</Text>);
                             },
                         }}
                         style={{backgroundColor: 'blue'}}

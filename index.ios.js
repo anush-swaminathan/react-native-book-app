@@ -9,6 +9,6 @@ import {
     AppRegistry
 } from 'react-native';
 
-import BookApp from './app/BookApp';
+import BookApp from './app/Books/Books';
 
 AppRegistry.registerComponent('BookApp', () => BookApp);

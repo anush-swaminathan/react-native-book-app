@@ -6,8 +6,8 @@ import React, {Component} from 'react';
 import { TabNavigator, StackNavigator } from 'react-navigation';
 import { Icon } from 'react-native-elements';
 
-import BookApp from './BookApp';
-import Me from './Me';
+import BookApp from './Books/Books';
+import Movies from './Movies/Movies';
 
 export const Tabs = TabNavigator({
     Books: {
@@ -19,11 +19,11 @@ export const Tabs = TabNavigator({
             },
         },
     },
-    Me: {
-        screen: Me,
+    Movies: {
+        screen: Movies,
         navigationOptions: {
             tabBar: {
-                label: 'Me',
+                label: 'Movies',
                 icon: ({ tintColor }) => <Icon name="account-circle" size={35} color={tintColor} />
             },
         },
