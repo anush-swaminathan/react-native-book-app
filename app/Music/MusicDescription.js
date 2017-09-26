@@ -10,7 +10,7 @@ import {
 
 import MovieDescriptionView from './MusicDescriptionView';
 
-export default class BookDescription extends Component {
+export default class MusicDescription extends Component {
 
     constructor () {
         super();
@@ -19,7 +19,7 @@ export default class BookDescription extends Component {
     render() {
         // alert(this.state.bookData.rank);
         return (
-            <MovieDescriptionView movieData={this.props.movieDetails} />
+            <MovieDescriptionView musicData={this.props.musicDetails} />
         );
     }
 }

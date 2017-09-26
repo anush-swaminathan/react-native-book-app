@@ -11,17 +11,17 @@ import {
     Navigator
 } from 'react-native';
 
-import MovieList from './MusicList';
+import MusicList from './MusicList';
 
-var URL = "https://api.themoviedb.org/3/movie/popular?api_key=1d27cb192429ad5e457befa6c6da3efa&language=en-US&page=1";
+var URL = "http://ws.audioscrobbler.com/2.0/?method=chart.gettoptracks&api_key=fec9b8e517fee793d027be186b3c990b&format=json";
 
-export default class MovieAppList extends Component {
+export default class MusicAppList extends Component {
 
     constructor(props) {
         super(props);
         var ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
         this.state = {
-            movieData: ds.cloneWithRows([])
+            musicData: ds.cloneWithRows([])
         };
     }
 
@@ -31,23 +31,34 @@ export default class MovieAppList extends Component {
     }
 
     _renderRow(rowData) {
+        let artist = '';
+        if (typeof rowData.artist === 'object') {
+            artist = rowData.artist.name;
+        } else {
+            artist = rowData.artist;
+        }
         return (
-            <MovieList coverURL={{uri: 'https://image.tmdb.org/t/p/w500_and_h281_bestv2/' + rowData.poster_path}}
-                       title={rowData.title}
-                       releaseDate={rowData.release_date}
-                       rating={Math.round(rowData.vote_average * 10) / 10} onPress={() => this.props.onPress(rowData)}/>
+            <MusicList coverURL={{uri: rowData.image[3]['#text']}}
+                       name={rowData.name}
+                       artist={artist}/>
         );
     }
 
     componentWillReceiveProps(nextProps) {
-        URL = 'https://api.themoviedb.org/3/movie/' + nextProps.movieType + '?api_key=1d27cb192429ad5e457befa6c6da3efa&language=en-US&page=1';
-        this._refreshData();
+        if (nextProps.searchKey) {
+            URL = 'http://ws.audioscrobbler.com/2.0/?method=track.search&track=' + nextProps.songName + '&api_key=fec9b8e517fee793d027be186b3c990b&format=json';
+            this._searchData();
+        } else {
+            URL = "http://ws.audioscrobbler.com/2.0/?method=chart.gettoptracks&api_key=fec9b8e517fee793d027be186b3c990b&format=json";
+            this._refreshData();
+        }
+
     }
 
     _renderFooter() {
         return (
             <View style={styles.sectionDivider}>
-                <Text>Bringing Movies List from TMDB</Text>
+                <Text>Powered By Last.fm</Text>
             </View>
         );
     }
@@ -57,14 +68,24 @@ export default class MovieAppList extends Component {
             .then((response) => response.json())
             .then((rjson) => {
                 this.setState({
-                    movieData: this.state.movieData.cloneWithRows(rjson.results)
+                    musicData: this.state.musicData.cloneWithRows(rjson.tracks.track)
+                });
+            });
+    }
+
+    _searchData() {
+        fetch(URL)
+            .then((response) => response.json())
+            .then((rjson) => {
+                this.setState({
+                    musicData: this.state.musicData.cloneWithRows(rjson.results.trackmatches.track)
                 });
             });
     }
 
     render() {
         return (
-            <ListView dataSource={this.state.movieData} renderRow={this._renderRow.bind(this)}
+            <ListView dataSource={this.state.musicData} renderRow={this._renderRow.bind(this)}
                       renderFooter={this._renderFooter}/>
         );
     }

@@ -1,23 +1,34 @@
 import React, {Component} from 'react';
-import {Text, View, Image, TouchableHighlight, Navigator, Picker} from 'react-native';
+import {Text, View, Image, TouchableHighlight, Navigator, TextInput} from 'react-native';
 
-import MovieAppList from './MusicAppList';
-import MovieDescription from './MusicDescription';
+import MusicAppList from './MusicAppList';
+import MusicDescription from './MusicDescription';
 
 export default class Music extends Component {
 
     constructor(props) {
         super(props);
         this.state = {
-            option: 'popular',
+            search: '',
+            searchKey: false
         };
+    }
+
+    updateText(event) {
+        let searchText = event.nativeEvent.text;
+        if (searchText !== '') {
+            this.setState({search: searchText, searchKey: true});
+        } else {
+            this.setState({search: searchText, searchKey: false});
+        }
+
     }
 
     render() {
         return (
             <View style={{flex: 1}}>
                 <Navigator
-                    initialRoute={{id: 1, option: 'popular', title: '', movieDetails: null}}
+                    initialRoute={{id: 1, musicDetails: null}}
                     renderScene={this.renderScene.bind(this)}
                     navigationBar={
                         <Navigator.NavigationBar
@@ -52,7 +63,7 @@ export default class Music extends Component {
                                                     paddingTop: 15,
                                                     alignSelf: 'center'
                                                 }}>
-                                                    Now Playing Movies
+                                                    Top Charts
                                                 </Text>
                                             </View>
                                         </View>
@@ -74,25 +85,17 @@ export default class Music extends Component {
                 return (
                     <View style={{flex: 1}}>
                         <View style={{paddingTop: 50, paddingBottom: 0}}>
-                            <Picker
-                                selectedValue={this.state.option}
-                                onValueChange={(opt) => this.setState({option: opt})} mode="dropdown">
-                                <Picker.Item label="Now Playing" value="now_playing"/>
-                                <Picker.Item label="Popular" value="popular"/>
-                                <Picker.Item label="Top Rated" value="top_rated"/>
-                                <Picker.Item label="Upcoming" value="upcoming"/>
-                            </Picker>
+                            <TextInput placeholder='Search Songs & Artist' blurOnSubmit={true} onSubmitEditing={this.updateText.bind(this)} returnKeyType='go'/>
                         </View>
-                        <MovieAppList movieType={this.state.option} onPress={(data) => {
+                        <MusicAppList songName={this.state.search} searchKey={this.state.searchKey} onPress={(data) => {
                             navigator.push({
                                 id: 2,
-                                movieDetails: data,
-                                title: data.title + ' ' + data.releaseDate
+                                musicDetails: data
                             });
                         }}/>
                     </View>);
             case 2:
-                return (<MovieDescription movieDetails={route.movieDetails}/>);
+                return (<MusicDescription musicDetails={route.musicDetails}/>);
         }
     }
 

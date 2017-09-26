@@ -9,12 +9,11 @@ import {
     TouchableHighlight
 } from 'react-native';
 
-export default class MovieList extends Component {
+export default class MusicList extends Component {
     propTypes: {
         coverURL: React.PropTypes.string.isRequired,
         releaseDate: React.PropTypes.string.isRequired,
-        title: React.PropTypes.string.isRequired,
-        rating: React.PropTypes.number.isRequired
+        title: React.PropTypes.string.isRequired
     };
 
     setNativeProps() {
@@ -27,12 +26,9 @@ export default class MovieList extends Component {
                 <View style={styles.MovieItem}>
                     <Image style={styles.cover} source={this.props.coverURL}/>
                     <View style={styles.info}>
-                        <Text style={styles.title}>{this.props.title}</Text>
+                        <Text style={styles.title}>{this.props.artist}</Text>
                         <Text style={styles.release}>
-                            Release Date-{this.props.releaseDate}
-                        </Text>
-                        <Text style={styles.text2}>
-                            (Rating: {this.props.rating})
+                            {this.props.name}
                         </Text>
                     </View>
                 </View>
@@ -53,8 +49,8 @@ var styles = StyleSheet.create({
     },
     cover: {
         flex: 1,
-        height: 150,
-        width: 75
+        width: 300,
+        borderRadius: 100
     },
     info: {
         flex: 3,

@@ -10,7 +10,7 @@ import {
 
 import MovieDescriptionView from './MovieDescriptionView';
 
-export default class BookDescription extends Component {
+export default class MovieDescription extends Component {
 
     constructor () {
         super();
